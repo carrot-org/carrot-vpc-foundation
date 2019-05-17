@@ -1,0 +1,10 @@
+.terraform
+*.backup
+.DS_Store
+*.output
+*.tfstate
+passwords.config
+*.swp
+*.zip
+/delta-*/
+/.idea/

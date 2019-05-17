@@ -1,0 +1,27 @@
+[
+  {
+    "image": "jenkinsci/blueocean",
+    "cpu": 0,
+    "memoryReservation": 128,
+    "volumesFrom": [],
+    "essential": true,
+    "name": "jenkins",
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 8080
+      },
+      {
+        "containerPort": 50000,
+        "hostPort": 50000
+      }
+    ],
+    "mountPoints": [
+        {
+            "readOnly": null,
+            "containerPath": "/var/jenkins_home",
+            "sourceVolume": "blue"
+        }
+    ]
+  }
+]
