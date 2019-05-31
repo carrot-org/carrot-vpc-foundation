@@ -77,7 +77,7 @@ resource "aws_service_discovery_service" "ecs-dev" {
 }
 
 resource "aws_iam_role" "ecs_exec" {
-  name               = "ecs_exec_aws_iam_role"
+  name               = "ecs_exec_aws_iam_role_jenkins_${var.environment}"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
 }
 
@@ -134,6 +134,6 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "ecs_task" {
-  name               = "ecs_task_aws_iam_role"
+  name               = "ecs_task_aws_iam_role_${var.environment}"
   assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
 }

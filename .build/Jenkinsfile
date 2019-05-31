@@ -1,0 +1,33 @@
+pipeline {
+    agent none
+    parameters { string(name: 'AWS_REGION', defaultValue: 'us-west-1', description: 'AWS Region') }
+    stages {
+        stage('Run Plan') {
+            agent { label 'terraform' }
+            steps {
+                echo 'Running Terraform Plan'
+                sh 'make plan'
+                stash name: 'plan', includes: 'plan.tfplan'
+            }
+        }
+        stage('Run Deploy (Apply)') {
+            agent { label 'terraform' }
+            input {
+                message "Should we deploy?"
+                ok "Yes, ship it!"
+            }
+            steps {
+                echo 'Running Apply'
+                echo 'terraform apply'
+                unstash 'plan'
+                sh 'make apply'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'plan.tfplan', fingerprint: true
+            archiveArtifacts artifacts: 'terraform.tfstate', fingerprint: true
+        }
+    }
+}
