@@ -1,13 +1,13 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v1.66.0"
 
   name = "jenkins-development"
 
-  cidr = "10.0.0.0/16"
+  cidr = "${var.vpc_cidr}"
 
-  azs             = ["us-west-1a", "us-west-1c"]
-  private_subnets = ["10.0.1.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.101.0/24", "10.0.103.0/24"]
+  azs             = "${var.vpc_azs}"
+  private_subnets = "${var.vpc_private_subnets}"
+  public_subnets  = "${var.vpc_public_subnets}"
 
   assign_generated_ipv6_cidr_block = true
 

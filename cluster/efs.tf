@@ -9,7 +9,7 @@ resource "aws_efs_file_system" "jenkins-efs" {
 }
 
 resource "aws_efs_mount_target" "target" {
-  count = "${length(var.private_subnet_ids)}"
+  count = "${var.private_subnet_count}"
 
   file_system_id  = "${aws_efs_file_system.jenkins-efs.id}"
   subnet_id       = "${element(var.private_subnet_ids, count.index)}"
